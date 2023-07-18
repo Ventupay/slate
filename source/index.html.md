@@ -2,9 +2,9 @@
 title: API Reference
 
 language_tabs: # must be one of https://github.com/rouge-ruby/rouge/wiki/List-of-supported-languages-and-lexers
+  - python
   - shell
   - ruby
-  - python
   - javascript
 
 toc_footers:
@@ -23,72 +23,165 @@ meta:
     content: Documentation for the EFEX API
 ---
 
-# EFEX's API Introduction
+# Introduction to EFEX
 
-PRUEBAAAA33333
+EFEX is a fintech that helps companies automate and process nearly instant cross-border payments with $0 transaction fees, competitive exchange rates, and automated local dispersion.
 
-The purpose of this documetnation is to guide you through the implementation of our API that allows businesses like your's to automate their FX operations and international payments.
 
-With our API, we help you process nearly instant cross-border payments with $0 transaction fees, competitive exchange rates, and automated local dispersion.  
+# EFEX's API
+
+The purpose of this documentation is to guide you through the implementation of our API that allows any company to automate their FX operations and international payments.
 
 Our API currently accepts deposits in: 
-<br>
+
 - United States (USD)
-<br>
 - Mexico (MXN) 
-<br>
 - Colombia (COP)
 
 In addition, our API allows our users to make instant payouts in:
-<br>
+
 - United States (USD)
-<br>
 - Mexico (MXN)
-<br>
 - Colombia (COP)
-<br>
 - **Rest of the world (SWIFT in USD)
 
 # Know Your Business (KYB)
 
-> To authorize, use this code:
+To start operating with EFEX your company needs to complete the Know Your Bussiness (KYB) registration process in the following link: https://app.efexpay.com/register 
 
-```ruby
-require 'kittn'
+Our compliance team will review your documentation and answer in under 24 hours.
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-```
-
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-```
-
-> Make sure to replace `meowmeowmeow` with your API key.
-
-To start operating with EFEX you need to complete a KYB of your business. Para comenzar a usar el método de Pago EFEX necesitamos que crees una cuenta EFEX en el siguiente link https://app.efexpay.com/register. En el proceso de registro, por favor sube los documentos correspondientes para que nuestro equipo de “compliance” pueda realizar el proceso interno de KYB (Know Your Business).
-
-
-`Authorization: meowmeowmeow`
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+Uploading your company's documentation should not take more than 5 minutes. 
 </aside>
 
-# Kittens
+# Glossary
+
+- Company: refers to the customer that is integrating to EFEX's API in order to automate its foreign exchange operations and international dispersions
+- "My team": owners, admins, and other members of the company with access to the EFEX platform and APIs
+- Contacts: third party recipients and beneficiaries of transfers made by a Company
+- Payments Out: this includes both the conversions between different currencies + the dispersion to the final contacts
+- Operations: refers to all the endpoints that execute an action in the flow of funds with EFEX's API
+
+# Environments
+
+We currently have 2 environments: a sandbox environment in which testing can be carried out and a production environment where you can start executing your operations.
+
+## Access to Sandbox Environment
+
+Once your KYB onboarding process has been approaved, please send an email to santiago@efexpay.com requesting the Sandbox keys. 
+
+```python
+Example key: key= cdf5f162-e7cd-4e3d-b781-37dfcd4100b
+
+URL_SANDBOX: https://sandbox.efexpay.com/
+```
+
+## Access to Production Environment
+Once you have finalized the integration in the Sandbox environemnt, EFEX will give you your official API keys to start executing operations.
+
+```python
+Example key: key= 0bpqwkas2818-129412SAJ0102mdks1002
+
+URL_PROD: https://app.efexpay.com/
+```
+
+
+# Platform vs API Functionalities
+
+At EFEX, we want to give you the best product experience. Hence, we offer both a platform where you and your entire team can excecute transactions manually, and a comprehensvie API (connected to your platform) where you can automate with code all your operations. 
+
+Our platform includes the following features:
+
+- Instructions to add funds to your EFEX wallet
+- Withdrawal of funds from your EFEX wallet
+- Visibility of exchange rates between currencies
+- Creation of contacts
+- Payments out (Send payments)
+- Payments in (Request payments) **Currently to other EFEX users
+- Payment receipts
+- Monthly statements
+- Add and remove members to your EFEX account
+
+
+Our API includes the following functionalities:
+
+- Instructions to add funds to your EFEX wallet
+- Visibility of exchange rates between currencies
+- Creation of contacts
+- Payments out (Send payments)
+
+
+# Instructions to Add Funds
+
+In order to carry out an operation, we first need to load funds into your EFEX wallet. This must be done from your company's bank account to your EFEX wallet in the corresponding country.
+
+<aside class="notice">
+Warning: it is important that the funds come from the bank account registered in the onboarding so that we can identify the funds internally in EFEX.
+</aside>
+
+Deposit methods that we accept:
+
+- United States (USD): domestic wires (we don't accept ACH)
+- Mexico (MXN): SPEI
+- Colombia (COP): PSE
+
+<aside class="notice">
+Warning: if I register as a US company, I can only add funds within the US
+</aside>
+
+
+# Exchange rates
+
+At any time, you can query via API the exchange rates between the different currencies that we support:
+
+USD/MXN
+<br>
+USD/COP
+<br>
+MXN/USD
+<br>
+USD/COP
+<br>
+COP/USD
+<br>
+COP/MXN
+
+It is important to keep in mind that the exchange rates are informative in order to know the market prices that EFEX currently offers. However, to carry out a currency conversion, it is necessary to execute the "Payments Out" API that includes the FX (the conversion) plus the local dispersion to the destination bank.
+
+# Contact Creation
+
+The creation of contacts is a process by which your company can generate end beneficiaries for transfers in the countries of destination. Contacts can be persons or businesses. For the creation of contacts we need the following data depending on the country.
+
+Attribute | Type | Description | Example
+--------- | ------- | ----------- | -----------
+id | UUID | the id of the Contact | a9d0164d-22df-46c6-a836-1a3da5a470d8
+email | Email | Email of the Contact | info@company.com
+phone | String | Phone Number of the Contact | 6505056442
+phone_country	 | String | 2 letter ISO code of the country the phone number exists in | US
+tax_number | TaxNumber | tax number of the contact for the country provided | 128412312
+first_name | String | First name of the Contact | Santiago
+last_name | String | Last name of the Contact | Bustamante Villa
+address | String | address of Contact | 350 Sharon Park Dr
+city | String | city of the Contact	| Menlo Park
+state | String | state of the Contact | California
+postal_code	 | String | the postal code of the beneficiary | 94025
+country | String | 2 letter ISO code of the country the Contact resides in | US
+business_name | String | Name of recipient business if applicable | Trator LLC
+account_number | String | the IBAN, CLABE, or account number of the bank account | 2345366431
+routing_code | String | Only applicable for US contacts | 021000021
+currency | String | the 3 character code of the currency | USD
+bank_name | String | the name of the banking institution | JP Morgan
+
+
+# Payments Out
+
+With the endpoint of "Payments Out" you can make all conversions and dispersions internationally. In order to send a payment we need to identify with the email a beneficiary previously created with the "Contacts" endpoint. With the "client_uuid" of that contact you will be able to call this "payload" to carry out the transaction and automatically send the funds.
+
+
+
+# This is under development
 
 ## Get All Kittens
 
@@ -260,3 +353,16 @@ Parameter | Description
 --------- | -----------
 ID | The ID of the kitten to delete
 
+
+# Add Team Members
+
+You can access your EFEX account in the following link to invite other members of your company: https://app.efexpay.com/login
+<br>
+You can give them reading or admin permissions to your EFEX platform.
+
+# Contact us
+
+Please always feel free to contact us either for technical support or to create your EFEX account!
+
+- Sales: sales@efexpay.com
+- Technical support: info@efexpay.com
