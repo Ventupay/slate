@@ -25,13 +25,19 @@ meta:
 
 # EFEX's API Introduction
 
-PRUEBAAAAAA 22222222
+PRUEBAAAA33333
 
 The purpose of this documetnation is to guide you through the implementation of our API that allows businesses like your's to automate their FX operations and international payments.
 
 With our API, we help you process nearly instant cross-border payments with $0 transaction fees, competitive exchange rates, and automated local dispersion.  
 
-We currently accept companies that operate from the United States, Mexico, and Colombia. Hence, we accept deposits from our users in USD, MXN, and COP respectively. 
+Our API currently accepts deposits in: 
+<br>
+- United States (USD)
+<br>
+- Mexico (MXN) 
+<br>
+- Colombia (COP)
 
 In addition, our API allows our users to make instant payouts in:
 <br>
@@ -43,7 +49,7 @@ In addition, our API allows our users to make instant payouts in:
 <br>
 - **Rest of the world (SWIFT in USD)
 
-# Authentication
+# Know Your Business (KYB)
 
 > To authorize, use this code:
 
@@ -73,9 +79,8 @@ let api = kittn.authorize('meowmeowmeow');
 
 > Make sure to replace `meowmeowmeow` with your API key.
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
+To start operating with EFEX you need to complete a KYB of your business. Para comenzar a usar el método de Pago EFEX necesitamos que crees una cuenta EFEX en el siguiente link https://app.efexpay.com/register. En el proceso de registro, por favor sube los documentos correspondientes para que nuestro equipo de “compliance” pueda realizar el proceso interno de KYB (Know Your Business).
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
 
 `Authorization: meowmeowmeow`
 
